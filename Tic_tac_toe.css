@@ -1,0 +1,148 @@
+
+:root{
+    --page-background: rgba(0, 0, 0, 0.822);
+    --score-table-background: purple;
+    --score-table-color: rgb(255, 255, 255);
+    --board-position-tile-background: rgb(63, 119, 133);
+    --board-position-tile-light-background: rgba(63, 119, 133, 0.7);
+    --board-position-tile-color: rgb(5 255 181);
+
+}
+
+html{
+    background-color: var(--page-background);
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+.score-table {
+    display: flex;
+    background-color: var(--score-table-background);
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+}
+
+.score-table>span {
+    /* width: 17.5%; */
+    padding: 10px;
+    /* background-color: var(--score-table-background); */
+    color: var(--score-table-color);
+}
+
+#pturn {
+    /* color: #e4ff03; */
+    /* font-size: 20px; */
+    font-weight: 900;
+    /* background-color: #ff0011; */
+}
+
+#board {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.position {
+    background-color: var(--board-position-tile-background);
+    color: var(--board-position-tile-color);
+    margin: 2px;
+    padding: 30px 39px;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    font-size: xx-large;
+    width: 20px;
+    height: 40px;
+}
+
+.position:hover {
+    
+    background-color: var(--board-position-tile-light-background);
+
+}
+
+
+#play 
+{
+    /* visibility: hidden; */
+    display: block;
+    width: 25%;
+    height: 2rem;
+    margin: 2rem auto;
+    border: none;
+    border-radius: 1em;
+    background-color: lightgreen;
+}
+
+#play:hover {
+    cursor: pointer;
+    background-color: lightseagreen;
+    box-shadow: grey;
+}
+
+audio {
+    display: none;
+}
+#victor-container{
+    position:absolute;
+    left: -435px;
+    top: 70px;
+    /* left: 435px;
+    top: 140px; */
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(238, 130, 238);
+    width: 302px;
+    height: 310px;
+    border-radius: 1em;
+    font-size: 1.7em;
+    transition: all 0.5s;
+}
+
+/* .victor-addon */
+#victor-container:hover{
+    border-radius: 1em;
+    /* font-size: 2em; */
+    transform: scale(1.25);
+    
+}
+
+#victor-container>div{
+    /* width: 200px; */
+}
+#next-round 
+{
+    display: block;
+    width: 150%;
+    height: 2.2rem;
+    margin: 2rem auto;
+    border: none;
+    border-radius: 1em;
+    background-color: lightgreen;
+}
+
+#next-round:hover {
+    cursor: pointer;
+    background-color: lightseagreen;
+    box-shadow: grey;
+}
+
+#footer{
+    display: flex;
+    margin-top: 4%;
+    padding: 4%;
+    justify-content: space-evenly;
+    background-color: black;
+    color: white;
+}

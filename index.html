@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe</title>
+    <link rel="stylesheet" href="Tic_tac_toe.css">
+</head>
+
+<body>
+    <div>
+        <!-- TIC TAC TOE v1.0.0  by Rkm-->
+    </div>
+    <div class="score-table">
+        <!-- <span>A's letter : X</span> -->
+        <span>A's Score : <span id="score-a">0</span></span>
+        <span><span id="pturn">A's turn</span> </span>
+        <!-- <span>B's letter : O</span> -->
+        <span>B's Score : <span id="score-b">0</span> </span>
+    </div>
+    <div id="board">
+        <div class="row">
+            <div class="position" id="pos7"> </div>
+            <div class="position" id="pos8"> </div>
+            <div class="position" id="pos9"> </div>
+        </div>
+        <div class="row">
+            <div class="position" id="pos4"> </div>
+            <div class="position" id="pos5"> </div>
+            <div class="position" id="pos6"> </div>
+        </div>
+        <div class="row">
+            <div class="position" id="pos1"> </div>
+            <div class="position" id="pos2"> </div>
+            <div class="position" id="pos3"> </div>
+        </div>
+    </div>
+    <audio controls id="audio" src="https://telegra.ph/file/08eb08bca16398f005353.mp4"></audio>
+    <div><button id="play">Play</button></div>
+    <div id="victor-container">
+    <div id="victor"><!--<span id="victor-name"></span>--> "A" has won the game. <br> 🎉🏆🎉</div>
+        <div><button id="next-round">New Round</button></div>
+</div>
+    
+<div id="footer">
+    Made with ❤ by Rahul
+</div>
+</body>
+
+<!-- JAVASCRIPT CODE  -->
+<script>
+    let turn = 1;
+    let score = [0,0];
+    let boardLeft = document.getElementById("pos7");
+    document.getElementById("victor-container").style = "top: "+(boardLeft.offsetTop+1)+"px";
+    // This function checks wheather player with 'ch' letter has won or not by looking at entries in board
+    function haswon(ch) {
+        var strek = 0;
+        // This for loop is for rows
+        for (k = 0; k < 7; k += 3) {
+            for (i = k; i < k + 3; i++) {
+                if (board[i] == ch)
+                    strek++;
+            }
+            console.log("checked for k = " + k + ", strek = " + strek);
+            if (strek == 3) {
+                console.log('victory');
+                // alert("VICTORY");
+                return 1;
+            }
+            strek = 0;
+        }
+        // This for loop is for columns
+        for (k = 0; k < 3; k++) {
+            for (i = k; i < k + 7; i += 3) {
+                if (board[i] == ch)
+                    strek++;
+            }
+            console.log("checked for k' = " + k + ", strek = " + strek);
+            if (strek == 3) {
+                console.log('victory');
+                // alert("VICTORY");
+                return 1;
+            }
+            strek = 0;
+        }
+        // For diagonal 1
+        for (i = 0; i < 9; i += 4) {
+            if (board[i] == ch)
+                strek++;
+        }
+        console.log("checked for d1 , strek = " + strek);
+        if (strek == 3) {
+            console.log('victory');
+            // alert("VICTORY");
+            return 1;
+        }
+        strek = 0;
+        // For diagonal 2
+        for (i = 2; i < 7; i += 2) {
+            if (board[i] == ch)
+                strek++;
+        }
+        console.log("checked for d2, strek =  " + strek);
+        if (strek == 3) {
+            console.log('victory');
+            // alert("VICTORY");
+            return 1;
+        }
+        strek = 0; 
+        //From now strek means is_full
+        // To check a draw
+        for(i= 0;i < 9 ; i++)
+        {
+            if(board[i] != ' ')
+            strek += 1;
+            else
+            break;
+        }
+        if(strek ==9)
+        return -1;
+        return 0;
+    }
+
+    // The following function is just for a button to play/pause the bgm 
+    let btn = document.getElementById("play");
+    btn.addEventListener("click", () => {
+        if (btn.innerText == "Play") {
+            document.getElementById("audio").play();
+            btn.innerText = "Pause";
+        }
+        else {
+            document.getElementById("audio").pause();
+            btn.innerText = "Play";
+        }
+    })
+
+    
+    function togle_music(){
+        btn.click();
+        // document.getElementById("audio").play();
+    }
+    
+    
+    function gotelementno(elmt) {
+        let pos = document.getElementById(elmt);
+        pos.addEventListener("click", () => {
+            if (elmt[3] != " ") {
+                let won = 0;
+                if (turn == 1 && board[elmt[3] - 1] == ' ') {
+                    pos.innerText = "X";
+                    turn = 0;
+                    board[elmt[3] - 1] = "X";
+                    document.getElementById("pturn").innerText = "B's turn";
+                    won = haswon('X');
+                }
+                else if (turn == 0 && board[elmt[3] - 1] == ' ') {
+                    pos.innerText = "O";
+                    turn = 1;
+                    board[elmt[3] - 1] = "O";
+                    won = haswon('O');
+                    document.getElementById("pturn").innerText = "A's turn";
+                }
+                if (won == 1) { 
+                    // alert("Victory"); 
+                    togle_music();
+                    if(turn == 0)
+                    {
+                        score[0] += 1;
+                        document.getElementById("score-a").innerText = score[0];
+                        // document.getElementById("pturn").innerText="A has won";
+                        document.getElementById("victor").innerText=`"A" has won  \n🎉🏆🎉`;
+                        document.getElementById("victor-container").style="left: "+(boardLeft.offsetLeft+2)+"px";
+                        
+                    }
+                    else if(turn==1)
+                    {
+                        score[1] += 1;
+                        document.getElementById("score-b").innerText = score[1];
+                        // document.getElementById("pturn").innerText="B has won";
+                        document.getElementById("victor").innerText=`"B" has won  \n🎉🏆🎉`;
+                        document.getElementById("victor-container").style="left: "+(boardLeft.offsetLeft+2)+"px";
+                    }
+                    
+                }
+                else if(won==-1)
+                {
+                    // document.getElementById("pturn").innerText="Game Drawn";
+                    document.getElementById("victor").innerText=`Game Drawn  \n🙌🤜🤛`;
+                    document.getElementById("victor-container").style="left: "+(boardLeft.offsetLeft+2)+"px";
+
+                }
+                console.log(pos.textContent);
+                console.log(elmt[3]);
+                // alert(pos.textContent);
+            }
+        })
+    }
+    
+    let board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+    let st = "posx";
+    let sy = "-";
+    
+    // The following function is for reloading the board for next round of game. 
+    let bbtn = document.getElementById("next-round");
+    bbtn.addEventListener("click",() => {
+
+        document.getElementById("victor-container").style="transition: all 2.5s";
+        board = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
+        // document.getElementById("victor").innerText=` Ready for next round \n🎉🏆🎉`;
+        alert("Ready for next round");
+        for (let i = 1; i < 10; i++) {
+            sy = st.replace("x", i);
+            document.getElementById(sy).innerText = board[i - 1];
+        }
+        
+        btn.click();
+        document.getElementById("victor-container").style="left: -435px";
+        document.getElementById("victor-container").style="transition: all 0.5s";
+    })
+
+    //This loop will execute once in the starting 
+    // It will add event listeners to all tiles and initialise them with ' ' blank 
+    for (let i = 1; i < 10; i++) {
+        sy = st.replace("x", i);
+        gotelementno(sy);
+        document.getElementById(sy).innerText = board[i - 1];
+    }
+
+
+    console.log(board);
+
+</script>
+
+</html>
