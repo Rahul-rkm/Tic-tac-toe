@@ -1,3 +1,6 @@
+*{
+    margin:0;
+}
 
 :root{
     --page-background: rgba(0, 0, 0, 0.822);
