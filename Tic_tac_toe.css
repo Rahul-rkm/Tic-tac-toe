@@ -45,6 +45,7 @@ html{
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    min-height: 80vh;
 }
 
 .row {
